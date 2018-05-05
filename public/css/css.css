@@ -1,0 +1,294 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    font-size: 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+    .btn {
+        font-size: 0.8rem!important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .btn {
+        font-size: 0.6rem!important;
+    }
+}
+
+body {
+    padding: 80px 40px 40px 40px;
+}
+
+
+/**form css**/
+
+.form-span {
+    text-align: left !important;
+    width: 15% !important;
+}
+
+.input-group {
+    margin-left: 12.5% !important;
+    width: 75% !important;
+}
+
+.help-block {
+    text-align: left !important;
+    display: inline-block !important;
+    width: 100% !important;
+}
+
+input[readonly] {
+    cursor: text;
+    background-color: #fff;
+}
+
+textarea {
+    resize: none;
+}
+
+
+/***/
+
+.homeimg {
+    width: 10vw !important;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.panel-flexfix {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img {
+    display: inline-block;
+    /* width: 10vw; */
+    margin-left: 2rem;
+    margin-right: 1rem;
+    height: auto;
+    box-shadow: 1px 1px 10px #898989;
+    border: 1px solid #e0e0e0;
+    width: 8vw!important;
+    height: 8vh!important;
+}
+
+p {
+    line-height: 8vh;
+    margin-bottom: 0!important;
+}
+
+ul,
+li,
+ol {
+    padding: 0!important;
+}
+
+
+/**course view css**/
+
+.post-container {
+    margin: 20px 20px;
+    overflow: auto
+}
+
+.post-thumb {
+    float: left;
+    line-height: 3vw;
+}
+
+.post-thumb img {
+    display: block;
+    width: 12vw!important;
+    height: 12vh!important;
+    margin-left: 1vw;
+}
+
+.post-content {
+    margin-left: 15vh;
+    height: 20vh;
+    overflow-y: scroll;
+    background-color: #f5f5f5;
+}
+
+.post-title {
+    font-weight: bold;
+    padding: 9px;
+    background-image: linear-gradient(to bottom, #f5f5f5 0, #e8e8e8 100%);
+    border-color: #ddd;
+}
+
+.btn {
+    width: 8vw!important;
+    padding: 0.5vw;
+}
+
+
+/***/
+
+
+/* table css */
+
+
+/* .fixed_header tbody {
+    display: block;
+    overflow: auto;
+    max-height: 200px;
+    width: 100%;
+}
+
+.fixed_header thead tr {
+    display: block;
+    width: 100%;
+}
+
+.fixed_header th:nth-child(1),
+.fixed_header td:nth-child(1) {
+    text-align: left;
+    width: 5%;
+}
+
+.fixed_header th:nth-child(2),
+.fixed_header td:nth-child(2),
+.fixed_header th:nth-child(3),
+.fixed_header td:nth-child(3) {
+    text-align: left;
+    width: 10%;
+} */
+
+.responsive-width {
+    font-size: 0.75vw;
+}
+
+
+/* image btn css */
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.tableImg {
+    display: table;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.table-cell-img {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#mediaFile {
+    position: absolute;
+    top: -1500px;
+}
+
+#profile {
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    position: relative;
+    top: 0px;
+    margin-bottom: -80px;
+    cursor: pointer;
+    background: #f4f4f4;
+    display: table;
+    background-size: cover;
+    background-position: center center;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.35);
+}
+
+#profile .dashes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    border: 4px dashed #ddd;
+    opacity: 1;
+}
+
+#profile label {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0 30px;
+    color: grey;
+    opacity: 1;
+}
+
+#profile.dragging {
+    background-image: none !important;
+}
+
+#profile.dragging .dashes {
+    animation-duration: 10s;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    opacity: 1 !important;
+}
+
+#profile.dragging label {
+    opacity: 0.5 !important;
+}
+
+#profile.hasImage .dashes,
+#profile.hasImage label {
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+.editable {
+    position: relative;
+}
+
+.editable i {
+    position: absolute;
+    top: 10px;
+    right: -20px;
+    opacity: 0.3;
+}
+
+button {
+    width: 100%;
+    -webkit-appearance: none;
+    line-height: 40px;
+    color: #fff;
+    border: none;
+    background-color: #ea4c89;
+    margin-top: 30px;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}

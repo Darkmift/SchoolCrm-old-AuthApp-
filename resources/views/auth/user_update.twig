@@ -1,0 +1,247 @@
+{% extends 'templates/app.twig'%}
+{% set page_title = 'Update User' %}
+{% block content %}
+    {# name set #}
+    {% if old.name %}
+        {% set name = old.name %}
+    {% elseif  student[0].name %}
+        {% set name = student[0].name %}
+    {% elseif user[0].name %}
+        {% set name = user[0].name %}
+    {% endif %}
+    {# email set #}
+    {% if old.email %}
+        {% set email = old.email %}
+    {% elseif  student[0].email %}
+        {% set email = student[0].email %}
+    {% elseif user[0].email %}
+        {% set email = user[0].email %}
+    {% endif %}
+    {# phone set #}
+    {% if old.phone %}
+        {% set phone = old.phone %}
+    {% elseif  student[0].phone %}
+        {% set phone = student[0].phone %}
+    {% elseif user[0].phone %}
+        {% set phone = user[0].phone %}
+    {% endif %}
+    {# phone set #}
+    {% if user[0].role %}
+        {% set role = user[0].role %}
+    {% endif %}
+    {# type #}
+    {% if user %}
+        {% if user[0].role is same as('2') %}
+            {% set headerEntityType = "Admin" %}
+        {% elseif   user[0].role is same as('1') %}
+            {% set headerEntityType = "Sales rep" %}
+        {% endif %}
+        {% set type = "users"%}
+    {% elseif student %}
+        {% set type = "students"%}
+        {% set headerEntityType = "Student" %}
+    {% endif %}
+    {# id #}
+    {% if user %}
+        {% set id = user[0].id%}
+    {% elseif student %}
+        {% set id = student[0].id%}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Update
+                    {{headerEntityType}}
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.user_update_submit') }}">
+                        <div class="form-group {{ errors.name ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">name</span>
+                                <input id="name" name="name" class="form-control" placeholder="your name here" type="text" value="{{ name }}">
+                            </div>
+                        </div>
+                        <div class="form-group {{ errors.email ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">email</span>
+                                <input id="email" name="email" class="form-control" placeholder="you@example.com" type="email" value="{{ email }}">
+                            </div>
+                        </div>
+                        <div class="form-group  {{ errors.phone ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">phone</span>
+                                <input id="phone" name="phone" class="form-control" placeholder="Phone number here" type="number" value="{{ phone }}">
+                            </div>
+                        </div>
+                        <div class="form-group  {{ errors.role ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                {% if user %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="role" value="1" {{ role == 1 ? 'checked="checked"' : '' }}>Sales
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="role" value="2" {{ role == 2 ? 'checked="checked"' : '' }}>Administration
+                                    </label>
+                                {% endif %}
+                                {% if student %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="role" value="S" checked="checked">Student
+                                    </label>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group  {{ errors.password ? ' has-error' : '' }}">
+                            <span style="margin-left:4vw;font-size:0.75rem;">
+                                leave password empty if you do not want to change password
+                            </span>
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">password</span>
+                                <input id="password" name="password" class="form-control" type="password">
+                            </div>
+                        </div>
+                        {#  #}
+                        <div class="form-group text-center">
+                            <button style="width:75%" id="UpdateDetails" name="UpdateDetails" class="btn btn-default">Update User</button>
+                        </div>
+                        <input type="hidden" name="type" value="{{ type }}">
+                        <input type="hidden" name="id" value="{{ id }}">
+                        {{ csrf.field | raw }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Update
+                    {{headerEntityType}}'s Image
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.user_update_image_submit') }}">
+                        {#  image input #}
+                        <div class="form-group {{ errors.image ? ' has-error' : '' }}">
+                            <br>
+                            <div id="profile">
+                                <div class="dashes"></div>
+                                <label>Click to browse or drag an image here</label>
+                            </div>
+                            <input type="file" name="image" id="mediaFile"/>
+                        </div>
+                        {#  #}
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="form-group text-center">
+                            <button style="width:100%" id="UpdateImg" name="UpdateImg" class="btn btn-default">Update Image</button>
+                        </div>
+                        <input type="hidden" name="type" value="{{ type }}">
+                        <input type="hidden" name="id" value="{{ id }}">
+                        {{ csrf.field | raw }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if student %}
+        <input type="hidden" name="sid" value="{{ id }}">
+        {% set counter = counter + 1 %}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Manage enrollments for
+                        {{headerEntityType}}:
+                        {{ name }}.
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div style="padding:2px 0 1px 4px;" class="panel-heading">
+                                {% if empty %}
+                                    <h3>This list is Empty</h3>
+                                </div>
+                                <div class="panel-body">
+                                {% elseif enrollments %}
+                                    <h5 style="margin-left:5px;">
+                                        {{ name }}
+                                        is enrolled in these courses</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="fixed_header table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr class="active">
+                                                <th>#</th>
+                                                <th>Enrollment ID</th>
+                                                <th>Course Name</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for enrollment in enrollments %}
+                                                <tr>
+                                                    <td>{{ counter }}</td>
+                                                    <td>{{enrollment.enrollID}}</td>
+                                                    <td>{{enrollment.courseName}}</td>
+                                                    <td>
+                                                        <button id="{{enrollment.enrollID}}" name="{{enrollment.courseName}}" data="{{ type }}" class="btn alert-danger unEnroll">
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                {% set counter = counter + 1 %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if courseToEnrollIn %}
+                            {% set counter = 1 %}
+                            <div class="panel panel-default">
+                                <div style="padding:2px 0 1px 4px;" class="panel-heading">
+                                    <h5 style="margin-left:5px;">
+                                        Available courses for
+                                        {{ name }}:
+                                    </h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="fixed_header table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr class="active">
+                                                <th>#</th>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for courseAvailabe in courseToEnrollIn %}
+                                                <tr>
+                                                    <td>{{ counter }}</td>
+                                                    <td>{{courseAvailabe.courseID}}</td>
+                                                    <td>{{courseAvailabe.courseName}}</td>
+                                                    <td>
+                                                        <button id="{{courseAvailabe.courseID}}" name="{{courseAvailabe.courseName}}" data="{{ type }}" class="btn alert-success enroll">
+                                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                {% set counter = counter + 1 %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <input type="hidden" name="sname" value="{{ name }}">
+                        {{ csrf.field | raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

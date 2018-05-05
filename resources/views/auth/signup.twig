@@ -1,0 +1,72 @@
+{% extends 'templates/app.twig'%}
+{% set page_title = 'Sign Up' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Sign Up
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.signup') }}">
+                        {# {% if errors is defined %}
+                            {{ errors | json_encode }}
+                        {% endif %} #}
+                        <div class="form-group {{ errors.name ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">name</span>
+                                <input id="name" name="name" class="form-control" placeholder="your name here" type="text" value="{{ old.name }}">
+                            </div>
+                            {# {% if errors.name %}
+                                <span style="margin-left:15%;" class="help-block">{{ errors.name | first }}</span>
+                            {% endif %} #}
+                        </div>
+
+                        <div class="form-group  {{ errors.email ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">email</span>
+                                <input id="email" name="email" class="form-control" placeholder="you@example.com" type="email" value="{{ old.email }}">
+                            </div>
+                            {# {% if errors.email %}
+                                <span style="margin-left:15%;" class="help-block">{{ errors.email | first }}</span>
+                            {% endif %} #}
+                        </div>
+                        <div class="form-group  {{ errors.password or errors.image ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">password</span>
+                                <input id="password" name="password" class="form-control" type="password">
+                            </div>
+                            {# {% if errors.password or errors.image %}
+                                <span style="margin-left:15%;" class="help-block">{{ errors.password | first }}
+                                    {% if errors.image %}
+                                       <br> Please retype password
+                                    {% endif %}
+                                </span>
+                            {% endif %} #}
+                        </div>
+                        {#  image input #}
+                        <div class="form-group {{ errors.image ? ' has-error' : '' }}">
+                            <div class="input-group input-file">
+                                <label style="width:75%;margin-left:12.5%;max-height:40px;" class="btn btn-default">
+                                    Click to Upload Image
+                                    <input style="visibility:hidden" class="form-control" type="file" hidden="hidden" name="image" id="image">
+                                </label>
+                            </div>
+                            {# {% if errors.image %}
+                                <span style="margin-left:15%;max-width:75%;" class="help-block">{{ errors.image | first }}</span>
+                            {% endif %} #}
+                        </div>
+                        {#  #}
+                        <div class="form-group text-center">
+                            <button style="width:75%" id="singlebutton" name="singlebutton" class="btn btn-default">Sign up</button>
+                        </div>
+                        {{ csrf.field | raw }}
+                    </form>
+                    <p class="text-center">
+                        <a href="#">Forgot your password?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

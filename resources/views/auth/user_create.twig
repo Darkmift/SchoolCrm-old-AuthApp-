@@ -1,0 +1,81 @@
+{% extends 'templates/app.twig'%}
+{% set page_title = 'Create User' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Create User
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.user_create') }}">
+                        <div class="form-group {{ errors.name ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">name</span>
+                                <input id="name" name="name" class="form-control" placeholder="your name here" type="text" value="{{ old.name }}">
+                            </div>
+                        </div>
+                        <div class="form-group  {{ errors.email ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">email</span>
+                                <input id="email" name="email" class="form-control" placeholder="you@example.com" type="email" value="{{ old.email }}">
+                            </div>
+                        </div>
+                        <div class="form-group  {{ errors.phone ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">phone</span>
+                                <input id="phone" name="phone" class="form-control" placeholder="Phone number here" type="number" value="{{ old.phone }}">
+                            </div>
+                        </div>
+                        <div class="form-group  {{ errors.role ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="role" value="1">Sales
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="role" value="2">Administration
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="role" value="S">Student
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group  {{ errors.password or errors.image ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">password</span>
+                                <input id="password" name="password" class="form-control" type="password">
+                            </div>
+                        </div>
+                        {#  image input #}
+                        <div class="form-group {{ errors.image ? ' has-error' : '' }}">
+                            <br>
+                            {# <div class="input-group input-file">
+                                <label style="font-size:0.75rem;max-height:40px;" class="btn btn-default btn-block col-md-offset-2">
+                                    Click to Upload Image
+                                    <input width="0" style="visibility:hidden" class="form-control" type="file" hidden="hidden" name="image" id="image">
+                                </label>
+                            </div> #}
+                            <div id="profile">
+                                <div class="dashes"></div>
+                                <label>Click to browse or drag an image here</label>
+                            </div>
+                            <input type="file" name="image" id="mediaFile"/>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                        {#  #}
+                        <div class="form-group text-center">
+                            <button style="width:75%" id="singlebutton" name="singlebutton" class="btn btn-default">Create User</button>
+                        </div>
+                        {{ csrf.field | raw }}
+                    </form>
+                    <p class="text-center">
+                        <a href="#">Forgot your password?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

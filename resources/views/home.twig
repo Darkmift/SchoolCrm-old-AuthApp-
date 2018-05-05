@@ -1,0 +1,165 @@
+{% extends 'templates/app.twig'%}
+{% set page_title = 'Main' %}
+{% block content %}
+    <div class="row">
+        <div class="col-4 col-offset-1">
+            <form action="{{ path_for('home.Display') }}" method="post" id="operationBtn" style="margin-left:7vw;">
+                <div class="btn-group">
+                    {% if auth.role >= 2 %}
+                        <button type="submit" class="btn btn-default">Admins</button>
+                        <button type="submit" class="btn btn-default">Students</button>
+                        <button type="submit" class="btn btn-default">Courses</button>
+                        <button type="submit" class="btn btn-default">Sales</button>
+                    {% elseif auth.role == "1" %}
+                        <button type="submit" class="btn btn-default">Students</button>
+                        <button type="submit" class="btn btn-default">Courses</button>
+                    {% endif %}
+                </div>
+                {{ csrf.field | raw }}
+            </form>
+            <br>
+            <br>
+        </div>
+    </div>
+    <div id="mainDisplay" class="row panel panel-default">
+        <div style="height:60vh;" class="panel-body row">
+            <div class="col-sm-6">
+                <div class="panel panel-default ">
+                    <div style="height:57vh;" class="panel-body">
+                        {% if userList %}
+                            <h4>Users:</h4>
+                        {% endif %}
+                        {% if courseList %}
+                            <h4>Courses:</h4>
+                        {% endif %}
+                        {% if studentList %}
+                            <h4>Students:</h4>
+                        {% endif %}
+                        <div style="border-radius:3px;border:1px solid #e5e5e5;overflow:scroll;height:50vh;" id="listContainer">
+                            {% set counter = 1 %}
+                            {% if studentList %}
+                                {% if studentList.empty =="Empty"%}
+                                    <p style="margin-left:25%;">This list is Empty</p>
+                                {% else %}
+                                    {% for student in studentList %}
+                                        <div eltype="student" id="{{student.id}}" style="margin-top:1rem;" class="post-container panel panel-default">
+                                            <div class="post-title panel-body">
+                                                <div class="post-thumb">
+                                                    <img style="display:inline-block;" src=" {{ base_url()}}/../public/images/students/{{ student.id }}.jpg" class="img-responsive img-thumbnail img" alt="user image">
+                                                    <p style="display:inline-block;">
+                                                        {{ counter }}
+                                                        {% set counter = counter + 1 %}
+                                                        :
+                                                        {{student.name}}
+                                                    </p>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                            {% if userList %}
+                                {% if userList.empty =="Empty"%}
+                                    <p style="margin-left:25%;">This list is Empty</p>
+                                {% else %}
+                                    {% for users in userList %}
+                                        <div eltype="user" id="{{users.id}}" style="margin-top:1rem;" class="post-container panel panel-default">
+                                            <div class="post-title panel-body">
+                                                <div class="post-thumb">
+                                                    <img style="display:inline-block;" src=" {{ base_url()}}/../public/images/users/{{ users.id }}.jpg" class="img-responsive img-thumbnail img" alt="user image">
+                                                    <p style="display:inline-block;font-size:0.75rem;">
+                                                        {{ counter }}
+                                                        {% set counter = counter + 1 %}
+                                                        :
+                                                        {{users.name}}
+                                                    </p>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                            {% if courseList %}
+                                {% if courseList.empty =="Empty"%}
+                                    <p style="margin-left:25%;">This list is Empty</p>
+                                {% else %}
+                                    {% for course in courseList %}
+                                        <div eltype="course" id="{{course.id}}" class="post-container panel panel-default">
+                                            <div class="post-title panel-body">
+                                                <div class="post-thumb">
+                                                    <img style="display:inline-block;" src=" {{ base_url()}}/../public/images/courses/{{ course.id }}.jpg" class="img-responsive img-thumbnail img" alt="course image"/>
+                                                    <p style="display:inline-block;">
+                                                        {{ counter }}
+                                                        {% set counter = counter + 1 %}:{{course.name}}
+                                                    </p>
+                                                    <br height="2vh">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# //right div #}
+            <div class="col-sm-6">
+                <div class="panel panel-default ">
+                    <div style="height:57vh;" class="panel-body panel-flexfix">
+                        <div style="padding:5px;border-radius:3px;height:57vh!important;" id="display">
+                            <div>
+                                //Click to view info
+                                <hr>
+                            </div>
+                            {# show details of clicked #}
+                            <div id="detailsDisplay"></div>
+                            {# button div #}
+                            <div style="visibility:hidden;" id="mngBtn">
+                                {% if studentList %}
+                                    <hr>
+                                    <div id="UpDelBtns" class="btn-group">
+                                        {# <button type="button" id="SLidUpdate" class="btn btn-warning">Update</button>
+                                        <button type="button" id="SLidDel" class="btn btn-danger">Delete</button>#}
+                                    </div>
+                                {% endif %}
+                                {% if userList or courseList %}
+                                    {% if auth.role >= 2 %}
+                                        <hr>
+                                        <div id="UpDelBtns" class="btn-group">
+                                            {# <button type="button" id="ULORCLidUpdate" class="btn btn-warning">Update</button>
+                                            <button type="button" id="ULORCLidDel" class="btn btn-danger">Delete</button> #}
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal html -->
+    <div class="container">
+        <!-- Trigger the modal with a button -->
+        <button id="enrollModal" style="display:none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Small Modal</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div id="enrollmentList">This is a small modal.</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ csrf.field | raw }}
+{% endblock %}

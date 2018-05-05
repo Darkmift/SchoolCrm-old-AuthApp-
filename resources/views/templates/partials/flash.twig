@@ -1,0 +1,174 @@
+{% if flash.getMessage('info') %}
+    <div class="alert alert-info">
+        {{ flash.getMessage('info') | first }}
+    </div>
+{% endif %}
+
+{% if flash.getMessage('error') %}
+    <div class="alert alert-danger">
+        {{ flash.getMessage('error') | first }}
+    </div>
+{% endif %}
+
+{% if flash.getMessage('success') %}
+    <div class="alert alert-success">
+        {{ flash.getMessage('success') | first }}
+    </div>
+{% endif %}
+
+{#  #}
+
+{# //signup error #}
+
+{% if flash.getMessage('signupError') %}
+    <div class="alert alert-danger">
+        {% if errors.name %}
+            -
+            {{ errors.name | first }}
+            <br>
+        {% endif %}
+        {% if errors.email %}
+            -
+            {{ errors.email | first }}
+            <br>
+        {% endif %}
+        {% if errors.password %}
+            -
+            {{ errors.password | first }}
+            <br>
+        {% endif %}
+        {% if errors.image %}
+            -
+            {{ errors.image | first }}
+            and retype password
+        {% endif %}
+    </div>
+{% endif %}
+
+{# //signin error #}
+
+{% if flash.getMessage('signinError') %}
+    <div class="alert alert-danger">
+        {{ flash.getMessage('signinError') |first }}
+        {% if errors.email %}
+            -
+            {{ errors.email | first }}
+            <br>
+        {% endif %}
+        {% if errors.password %}
+            -
+            {{ errors.password | first }}
+
+        {% endif %}
+    </div>
+{% endif %}
+
+{# Course error #}
+
+{% if flash.getMessage('courseError') %}
+    <div class="alert alert-danger">
+        {% if errors.name %}
+            -
+            {{ errors.name | first }}
+            <br>
+        {% endif %}
+        {% if errors.description %}
+            -
+            {{ errors.description | first }}
+            <br>
+        {% endif %}
+        {% if errors.start_date %}
+            -
+            {{ errors.start_date | first }}
+            <br>
+        {% endif %}
+        {% if errors.end_date %}
+            -
+            {{ errors.end_date | first }}
+            <br>
+        {% endif %}
+        {% if errors.image %}
+            -
+            {{ errors.image | first }}
+        {% endif %}
+    </div>
+{% endif %}
+
+{# user Create error #}
+
+{% if flash.getMessage('userCreateError') %}
+    <div class="alert alert-danger">
+        {% if errors.name %}
+            -
+            {{ errors.name | first }}
+            <br>
+        {% endif %}
+        {% if errors.email %}
+            -
+            {{ errors.email | first }}
+            <br>
+        {% endif %}
+        {% if errors.phone %}
+            -
+            {{ errors.phone | first }}
+            <br>
+        {% endif %}
+        {% if errors.role %}
+            -
+            {{ errors.role | first }}
+            <br>
+        {% endif %}
+        {% if errors.password %}
+            -
+            {{ errors.password | first }}
+            <br>
+        {% endif %}
+        {% if errors.image %}
+            -
+            {{ errors.image | first }}
+            and retype password
+        {% endif %}
+    </div>
+{% endif %}
+
+{# user Update error #}
+
+{% if flash.getMessage('userCreateError') %}
+    <div class="alert alert-danger">
+        {% if errors.name %}
+            -
+            {{ errors.name | first }}
+            <br>
+        {% endif %}
+        {% if errors.email %}
+            -
+            {{ errors.email | first }}
+            <br>
+        {% endif %}
+        {% if errors.phone %}
+            -
+            {{ errors.phone | first }}
+            <br>
+        {% endif %}
+        {% if errors.role %}
+            -
+            {{ errors.role | first }}
+            <br>
+        {% endif %}
+        {% if errors.password %}
+            -
+            {{ errors.password | first }}
+            <br>
+        {% endif %}
+    </div>
+{% endif %}
+
+{# update image #}
+{% if flash.getMessage('imageUpdateError') %}
+    <div class="alert alert-danger">
+        {% if errors.image %}
+            -
+            {{ errors.image | first }}
+        {% endif %}
+    </div>
+{% endif %}

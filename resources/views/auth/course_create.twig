@@ -1,0 +1,67 @@
+{% extends 'templates/app.twig'%}
+{% set page_title = 'Create Course' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Course creation menu
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.course_create') }}">
+                        {# name input #}
+                        <div class="form-group {{ errors.name ? ' has-error' : '' }}">
+                            <label for="name">Name:</label>
+                            <input id="name" name="name" class="form-control" placeholder="your name here" type="text" value="{{ old.name }}">
+                            {# {% if errors.name %}
+                                <span style="margin-left:15%;" class="help-block">{{ errors.name | first }}</span>
+                            {% endif %} #}
+                        </div>
+                        {# describe input  #}
+                        {% spaceless %}
+                            <div class="form-group {{ errors.description ? ' has-error' : '' }}">
+                                <label for="description">Describe course:</label>
+                                <textarea class="form-control" width="50%" rows="5" id="description" name="description">{% if old.description %}{{ old.description |replace({'  ':''}) }}
+                                    {% endif %}
+                                </textarea>
+                            </div>
+                        {% endspaceless %}
+                        {# start date input #}
+                        <div style="margin-left:2%;display:inline-block;width:45%;" class="form-group {{ errors.start_date ? ' has-error' : '' }}">
+                            <label for="example-datetime-local-input" class="col-2 col-form-label">Start Date</label>
+                            <div {{ errors.start_date ? 'style="border:1px solid red' : '' }}>
+                                <input   class="form-control" type="date" id="start_date" name="start_date" value="{{ old.start_date ? old.start_date : "now"|date("Y-m-d") }}">
+                            </div>
+                        </div>
+                        {# end date input #}
+                        <div style="margin-left:3%;display:inline-block;width:45%;" class="form-group {{ errors.end_date ? ' has-error' : '' }}">
+                            <label for="example-datetime-local-input" class="col-2 col-form-label">End Date</label>
+                            <div {{ errors.end_date ? 'style="border:1px solid red' : '' }} >
+                                <input class="form-control" type="date" id="end_date" name="end_date"  value="{{ old.end_date ? old.end_date : "now"|date("Y-m-d") }}">
+                            </div>
+                        </div>
+                        {#  image input #}
+                        <div class="form-group {{ errors.image ? ' has-error' : '' }}">
+                                <div id="profile">
+                                    <div class="dashes"></div>
+                                    <label>Click to browse or drag an image here</label>
+                                </div>
+                                <input type="file" name="image" id="mediaFile"/>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                        </div>
+                        {#  #}
+                        <div class="form-group text-center">
+                            <br>
+                            <button style="width:75%" id="singlebutton" name="singlebutton" class="btn btn-default">Add Course</button>
+                        </div>
+                        {{ csrf.field | raw }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

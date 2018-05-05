@@ -1,0 +1,225 @@
+{% extends 'templates/app.twig'%}
+{% set page_title = 'Update Course' %}
+{% block content %}
+    {# name set #}
+    {% if old.name %}
+        {% set name = old.name %}
+    {% elseif  course[0].name %}
+        {% set name = course[0].name %}
+    {% endif %}
+    {# description set #}
+    {% if old.description %}
+        {% set description = old.description %}
+    {% elseif  course[0].description %}
+        {% set description = course[0].description %}
+    {% endif %}
+    {# start_date set #}
+    {% if old.start_date %}
+        {% set start_date = old.start_date %}
+    {% elseif  course[0].start_date %}
+        {% set start_date = course[0].start_date %}
+    {% endif %}
+    {# end_date set #}
+    {% if old.end_date %}
+        {% set end_date = old.end_date %}
+    {% elseif  course[0].end_date %}
+        {% set end_date = course[0].end_date %}
+    {% endif %}
+    {# type #}
+    {% if course %}
+        {% set type = "courses"%}
+    {% endif %}
+    {# id #}
+    {% if course %}
+        {% set id = course[0].id%}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Course Update
+                </div>
+                <div class="panel-body">
+                    {# {{dump(course)}} #}
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.course_update_submit') }}">
+                        {# name input #}
+                        <div class="form-group {{ errors.name ? ' has-error' : '' }}">
+                            <label for="name">Name:</label>
+                            <input id="name" name="name" class="form-control" placeholder="your name here" type="text" value="{{ name }}">
+                        </div>
+                        {# describe input  #}
+                        {% spaceless %}
+                            <div class="form-group {{ errors.description ? ' has-error' : '' }}">
+                                <label for="description">Describe course:</label>
+                                <textarea class="form-control" width="50%" rows="5" id="description" name="description">
+                                    {% if description %}{{ description |replace({'  ':''}) }}
+                                    {% endif %}
+                                </textarea>
+                            </div>
+                        {% endspaceless %}
+                        {# start date input #}
+                        <div style="margin-left:2%;display:inline-block;width:45%;" class="form-group {{ errors.start_date ? ' has-error' : '' }}">
+                            <label for="example-datetime-local-input" class="col-2 col-form-label">Start Date</label>
+                            <div {{ errors.start_date ? 'style="border:1px solid red' : '' }}>
+                                <input class="form-control" type="date" id="start_date" name="start_date" value="{{start_date}}">
+                            </div>
+                        </div>
+                        {# end date input #}
+                        <div style="margin-left:3%;display:inline-block;width:45%;" class="form-group {{ errors.end_date ? ' has-error' : '' }}">
+                            <label for="example-datetime-local-input" class="col-2 col-form-label">End Date</label>
+                            <div {{ errors.end_date ? 'style="border:1px solid red' : '' }}>
+                                <input class="form-control" type="date" id="end_date" name="end_date" value="{{end_date}}">
+                            </div>
+                        </div>
+                        {#  #}
+                        <div class="form-group text-center">
+                            <br>
+                            <button style="width:75%" id="singlebutton" name="singlebutton" class="btn btn-default">Update Course</button>
+                        </div>
+                        <input type="hidden" name="type" value="courses">
+                        <input type="hidden" name="id" value="{{ id }}">
+                        {{ csrf.field | raw }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Update Course Image
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.course_update_image_submit') }}">
+                        {#  image input #}
+                        <div class="form-group {{ errors.image ? ' has-error' : '' }}">
+                            {# <br>
+                            <div class="input-group input-file">
+                                <label style="font-size:0.75rem;max-height:40px;padding:10px;" class="btn btn-default btn-block col-md-offset-3">
+                                    Click to Upload Image
+                                    <input width="0" style="visibility:hidden" class="form-control" type="file" hidden="hidden" name="image" id="image">
+                                </label>
+                            </div> #}
+                            <br>
+                            <div id="profile">
+                                <div class="dashes"></div>
+                                <label>Click to browse or drag an image here</label>
+                            </div>
+                            <input type="file" name="image" id="mediaFile"/>
+                        </div>
+                        {#  #}
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    {#  #}
+                    <div class="form-group text-center">
+                        <button style="width:100%" id="UpdateImg" name="UpdateImg" class="btn btn-default">Update Image</button>
+                    </div>
+                    <input type="hidden" name="type" value="{{ type }}">
+                    <input type="hidden" name="id" value="{{ id }}">
+                    {{ csrf.field | raw }}
+                </form>
+            </div>
+        </div>
+    </div>
+    {#  #}
+    {#  #}
+    <input type="hidden" name="sid" value="{{ id }}">
+    {% set counter = counter + 1 %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Manage enrollments for Course :
+                    {{ name }}.
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div style="padding:2px 0 1px 4px;" class="panel-heading">
+                            {% if empty %}
+                                <h3>This list is Empty</h3>
+                            </div>
+                            <div class="panel-body">
+                            {% elseif enrollments %}
+                                <h5 style="margin-left:5px;">
+                                    The following students are enrolled in:
+                                    {{ name }}
+                                </h5>
+                            </div>
+                            <div class="panel-body">
+                                <table class="fixed_header table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr class="active">
+                                            <th>#</th>
+                                            <th>Enrollment ID</th>
+                                            <th>Student Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for enrollment in enrollments %}
+                                            <tr>
+                                                <td>{{ counter }}</td>
+                                                <td>{{enrollment.enrollID}}</td>
+                                                <td>{{enrollment.studentName}}</td>
+                                                <td>
+                                                    <button id="{{enrollment.enrollID}}" name="{{enrollment.studentName}}" data="{{ type }}" class="btn alert-danger unEnroll">
+                                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% set counter = counter + 1 %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if studentsToEnrollIn %}
+                        {% set counter = 1 %}
+                        <div class="panel panel-default">
+                            <div style="padding:2px 0 1px 4px;" class="panel-heading">
+                                <h5 style="margin-left:5px;">
+                                    Available students for
+                                    {{ name }}:
+                                </h5>
+                            </div>
+                            <div class="panel-body">
+                                <table class="fixed_header table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr class="active">
+                                            <th>#</th>
+                                            <th>Student ID</th>
+                                            <th>Student Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for studentAvailable in studentsToEnrollIn %}
+                                            <tr>
+                                                <td>{{ counter }}</td>
+                                                <td>{{studentAvailable.studentID}}</td>
+                                                <td>{{studentAvailable.studentName}}</td>
+                                                <td>
+                                                    <button id="{{studentAvailable.studentID}}" name="{{studentAvailable.studentName}}" data="{{ type }}" class="btn alert-success enroll">
+                                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% set counter = counter + 1 %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <input type="hidden" name="sname" value="{{ name }}">
+                    {{ csrf.field | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

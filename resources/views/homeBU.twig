@@ -1,0 +1,88 @@
+{% extends 'templates/app.twig'%}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+
+                    {% if auth.check %}
+                        Welcome
+                        {{ auth.user.name }}!
+                    {% else %}
+                        <br>
+                        Who dis?U hackerz?!
+                    {% endif %}
+                </div>
+                <div class="panel-body panel-flexfix text-center">
+                    <img src=" {{ base_url()}}/../public/images/users/{{ auth.user.id }}.jpg" class="img-responsive img-circle" alt="user image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-9 col-xs-offset-1">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    Users in DB:
+                    <b>{{ lists[1].userList|length }}</b>
+                </div>
+                <div class="panel-body">
+                    <h4>USERS:</h4>
+                    <hr>
+                    <br>
+                    <div id="userContainer" class="pre-scrollable">
+                        {% if lists[1].userList %}
+                            {# {{ DBController.userList |json_encode() }} #}
+                            {% for users in lists[1].userList %}
+                                <div style="margin-top:1rem;">
+                                    <img src=" {{ base_url()}}/../public/images/users/{{ users.id }}.jpg" class="img-responsive img-thumbnail img" alt="user image">
+                                    <p style="display:inline-block;">
+                                        {{ users.id }}
+                                        :
+                                        {{users.name}}
+                                    </p>
+                                    <br>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-9 col-xs-offset-1">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    Courses in DB:
+                    <b>{{ lists[0].courseList|length }}</b>
+                </div>
+                <div class="panel-body">
+                    <h4>Courses:</h4>
+                    <hr style="margin:3px">
+                    <div id="courseContainer" class="pre-scrollable">
+                        {% for course in lists[0].courseList %}
+                            <div class="post-container panel panel-default">
+                                <div class="post-title panel-heading">{{course.id}}:{{course.name}}</div>
+                                <div class="post-title panel-body">
+                                    <div class="post-thumb">
+                                        <br>
+                                        <img src=" {{ base_url()}}/../public/images/courses/{{ course.id }}.jpg" class="img-responsive img-thumbnail img" alt="course image"/>
+                                        <br height="2vh">
+                                    </div>
+                                    <div class="post-content">
+                                        <br height="2vh">
+                                        {{course.description}}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

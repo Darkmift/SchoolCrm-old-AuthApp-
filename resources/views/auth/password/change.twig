@@ -1,0 +1,41 @@
+{% extends 'templates/app.twig'%}
+{% set page_title = 'Change Password' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Sign Up
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="align-items-center" action="{{ path_for('auth.password.change') }}">
+                        <div class="form-group  {{ errors.password_old or errors.password  ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">current password</span>
+                                <input id="password_old" name="password_old" class="form-control" type="password">
+                            </div>
+                            {# {% if errors.password_old %}
+                                <span style="margin-left:15%;" class="help-block">{{ errors.password_old | first }}</span>
+                            {% endif %} #}
+                        </div>
+
+                        <div class="form-group  {{ errors.password or errors.password_old  ? ' has-error' : '' }}">
+                            <div class="input-group">
+                                <span class="input-group-addon form-span">New password</span>
+                                <input id="password" name="password" class="form-control" type="password">
+                            </div>
+                            {# {% if errors.password %}
+                                <span style="margin-left:15%;" class="help-block">{{ errors.password | first }}</span>
+                            {% endif %} #}
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button style="width:75%" id="singlebutton" name="singlebutton" class="btn btn-default">Change password</button>
+                        </div>
+                        {{ csrf.field | raw }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
