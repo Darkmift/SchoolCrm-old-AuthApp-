@@ -17,7 +17,7 @@
                 {% if auth.check %}
                     <li class="dropdown">
                         <a href="#" style="padding:0.5vh;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img style="width:3vw;height:4vh;marginmargin-right:0.25vw;" src="{{ base_url()}}/../public/images/users/{{ auth.user.id }}.jpg" class="responsive img-thumbnail" alt="Cinque Terre">
+                            <img style="width:3vw;height:4vh;marginmargin-right:0.25vw;" src="{{ base_url()}}/../public/images/users/{{ auth.user.id }}.jpg?{{ random(999) }}" class="responsive img-thumbnail" alt="Cinque Terre">
                             {{ auth.user.name }}
                             <span class="caret"></span>
                         </a>
