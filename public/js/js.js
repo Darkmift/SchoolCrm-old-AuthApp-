@@ -97,8 +97,8 @@ listContainer.children().click(
                         var form = $('<form action="' + url + '" method="post">' +
                             '<input type="text" name="id" value="' + String(dataParsed.id) + '" />' +
                             '<input type="text" name="type" value="' + BtnClicked.name + '" />' +
-                            '<input type="text" name="csrf_name" value="' + csrfName.val() + '" />' +
-                            '<input type="text" name="csrf_value" value="' + csrfValue.val() + '" />' +
+                            '<input type="hidden" name="csrf_name" value="' + csrfName.val() + '" />' +
+                            '<input type="hidden" name="csrf_value" value="' + csrfValue.val() + '" />' +
                             '</form>');
                         //console.log(form);
                         $('body').append(form);
@@ -353,8 +353,8 @@ $('.enroll,.unEnroll').click(function(e) {
         '<input type="text" name="sname" value="' + sname + '" />' +
         '<input type="text" name="cname" value="' + cname + '" />' +
         '<input type="text" name="action" value="' + action + '" />' +
-        '<input type="text" name="csrf_name" value="' + csrfName.val() + '" />' +
-        '<input type="text" name="csrf_value" value="' + csrfValue.val() + '" />' +
+        '<input type="hidden" name="csrf_name" value="' + csrfName.val() + '" />' +
+        '<input type="hidden" name="csrf_value" value="' + csrfValue.val() + '" />' +
         '</form>');
     //console.log(form);
     $('body').append(Eform);
