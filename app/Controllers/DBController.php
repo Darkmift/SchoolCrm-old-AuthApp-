@@ -94,7 +94,9 @@ class DBController extends Controller
                 $output = $this->db2->select("SELECT `id`,`name`,`email`,`phone` FROM $table WHERE id =$id");
                 break;
         }
-        $data['logged'] = $this->auth->user()->id;
+        $data['logged'] = array(
+            'id' => $this->auth->user()->id,
+            'role' => $this->auth->user()->role);
         $data['enrollments'] = $enrollemnts;
         $data['selectedEntity'] = $output;
         return $response->getBody()->write(json_encode($data));

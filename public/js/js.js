@@ -105,11 +105,6 @@ listContainer.children().click(
                         form.submit();
                         //graveyard chunk 01 here
                     }
-                    //     // $('#enrollmentList').html(
-                    //     //     JSON.stringify(
-                    //     //         editEntry(BtnClicked.name, BtnClicked.id, BtnClicked.value)
-                    //     //     )
-                    //     // );
                 }
             )
         );
@@ -207,10 +202,16 @@ function setBtns(info, type) {
             ]);
             // hide buttons
             // if user viewing themselves
-            if (data.id === logged && table === "users") {
+
+            if (logged['role'] === "3") {
+                break;
+            }
+            console.log(logged['role']);
+            if (data.id === logged['id'] && table === "users") {
                 //console.log('not allowed');
                 $('[name="users"]').css("display", "none");
             }
+
             break;
         case "students":
         case "courses":
@@ -245,10 +246,6 @@ function makeBtn(btnId, btnType, btnValue, btnClassName, btnText) {
         class: btnClassName,
         text: btnText,
     });
-    // if (btnValue === 'enroll') {
-    //     btn.attr('data-toggle', 'modal');
-    //     btn.attr('data-target', '#myModal');
-    // }
     return btn;
 }
 
@@ -266,16 +263,6 @@ function editEntry(type, id, action) {
             "csrf_value": csrfValue.val()
         });
     }
-    // if (action === "enroll") {
-    //     urlStr = "getEnrollments";
-    //     methodType = "GET";
-    //     info = {
-    //         type: type,
-    //         id: id,
-    //         action: action,
-    //     };
-    //     enrollmentArray = [];
-    //}
 
     $.ajax({
         type: methodType,
