@@ -137,6 +137,10 @@ ol {
     font-size: 1vw;
 }
 
+.panel-body {
+    overflow: scroll;
+}
+
 
 /***/
 
