@@ -8,13 +8,13 @@ html {
 
 @media only screen and (max-width: 500px) {
     .btn {
-        font-size: 0.8rem!important;
+        font-size: 0.8rem !important;
     }
 }
 
 @media only screen and (max-width: 400px) {
     .btn {
-        font-size: 0.6rem!important;
+        font-size: 0.6rem !important;
     }
 }
 
@@ -82,19 +82,19 @@ textarea {
     height: auto;
     box-shadow: 1px 1px 10px #898989;
     border: 1px solid #e0e0e0;
-    width: 8vw!important;
-    height: 8vh!important;
+    width: 8vw !important;
+    height: 8vh !important;
 }
 
 p {
     line-height: 8vh;
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
 }
 
 ul,
 li,
 ol {
-    padding: 0!important;
+    padding: 0 !important;
 }
 
 
@@ -112,8 +112,8 @@ ol {
 
 .post-thumb img {
     display: block;
-    width: 12vw!important;
-    height: 12vh!important;
+    width: 12vw !important;
+    height: 12vh !important;
     margin-left: 1vw;
 }
 
@@ -132,8 +132,9 @@ ol {
 }
 
 .btn {
-    width: 8vw!important;
+    width: 8vw !important;
     padding: 0.5vw;
+    font-size: 1vw;
 }
 
 
