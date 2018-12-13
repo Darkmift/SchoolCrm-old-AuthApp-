@@ -1,4 +1,4 @@
-<nav style="height:5vh;" class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -15,21 +15,17 @@
                     <a href="{{ path_for('home') }}">Home</a>
                 </li>
                 {% if auth.check %}
+
                     <li class="dropdown">
-                        <a href="#" style="padding:0.5vh;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img style="width:3vw;height:4vh;marginmargin-right:0.25vw;" src="{{ base_url()}}/../public/images/users/{{ auth.user.id }}.jpg" class="responsive img-thumbnail" alt="Cinque Terre">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img style="middle;width:25px;padding:0;margin-top:-0.25vh;margin-bottom:-0.30vh;" src="{{ base_url()}}/../public/images/users/{{ auth.user.id }}.jpg" class="responsive img-thumbnail" alt="Cinque Terre">
                             {{ auth.user.name }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            {% if auth.role >= 2 %}
-                                <li>
-                                    <a href="{{ path_for('auth.course_create') }}">Create Course</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path_for('auth.user_create') }}">Create User</a>
-                                </li>
-                            {% endif %}
+                            <li>
+                                <a href="{{ path_for('auth.course_create') }}">Course Management</a>
+                            </li>
                             <li>
                                 <a href="{{ path_for('auth.password.change') }}">change password</a>
                             </li>

@@ -44,7 +44,7 @@ class Auth
         }
         if (password_verify($password, $user->password)) {
             // var_dump($user);
-            // die();///
+            // die();
             //if true verify password
             //set session if true
             $_SESSION['user'] = $user->id;

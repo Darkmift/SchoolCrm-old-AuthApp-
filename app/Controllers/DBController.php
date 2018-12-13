@@ -94,9 +94,7 @@ class DBController extends Controller
                 $output = $this->db2->select("SELECT `id`,`name`,`email`,`phone` FROM $table WHERE id =$id");
                 break;
         }
-        $data['logged'] = array(
-            'id' => $this->auth->user()->id,
-            'role' => $this->auth->user()->role);
+        $data['logged'] = $this->auth->user()->id;
         $data['enrollments'] = $enrollemnts;
         $data['selectedEntity'] = $output;
         return $response->getBody()->write(json_encode($data));
@@ -108,6 +106,8 @@ class DBController extends Controller
         $table = $request->getParam('type');
         $action = $request->getParam('action');
         $tester = "";
+        // var_dump($id, $table, $action, $tester);
+        // die();
         switch ($action) {
             case 'enroll':
                 $tester = "enroll!!";
@@ -122,7 +122,9 @@ class DBController extends Controller
         }
         //$csrf = array("csrf_name_value" => $this->container->csrf->getTokenName(), "csrf_value_value" => $this->container->csrf->getTokenValue());
         $derp = array($id, $table, $action, $tester);
+        // return $response->getBody()->write(json_encode($derp), $output);
         return $response->getBody()->write(json_encode($derp), $output);
+
     }
 
     public function getEnrollments($request, $response, $args)

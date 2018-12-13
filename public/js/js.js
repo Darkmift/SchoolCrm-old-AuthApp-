@@ -22,7 +22,7 @@ var csrfName = $('[name="csrf_name"]');
 var csrfValue = $('[name="csrf_value"]');
 
 BtnForm.children().children().click(
-    function(e) {
+    function (e) {
         e.preventDefault();
         mngBtn.css('visibility', 'none');
         console.log('form clicked');
@@ -44,7 +44,7 @@ BtnForm.children().children().click(
 var table;
 //ajax functions for right div display.
 listContainer.children().click(
-    function(e) {
+    function (e) {
         //get id of clicked
         idClicked = $(this).attr('id');
         //get table name
@@ -52,27 +52,28 @@ listContainer.children().click(
         //student/course/user info header
         display.children[0].innerHTML = "<h4>" + $(this).attr('elType') + " info:</h4><hr>";
         mngBtn.css('visibility', 'visible');
-        $.get(type + "/" + idClicked).done(function(data) {
+        $.get(type + "/" + idClicked).done(function (data) {
             table = type;
             //console.log(data);
             //showEntry(data, type);
         }).done(
-            function(data) {
+            function (data) {
                 showEntry(data, table);
             }
         ).done(
-            function(data) {
+            function (data) {
                 setBtns(data, table)
             }
         ).done(
             $('#UpDelBtns').click(
-                function(e) {
+                function (e) {
                     var BtnClicked = event.target;
                     // console.log('BtnClicked id: ' + BtnClicked.id,'BtnClicked type: ' + BtnClicked.name,'BtnClicked do: ', BtnClicked.value);
                     //console.log(data);
                     dataParsed = data;
                     if (BtnClicked.value == "del") {
                         editEntry(BtnClicked.name, BtnClicked.id, BtnClicked.value);
+                        // console.log(BtnClicked.id);
                         $('#' + BtnClicked.id).remove();
                         $('#detailsDisplay').html($('<div>', {
                             class: "alert alert-success",
@@ -97,8 +98,8 @@ listContainer.children().click(
                         var form = $('<form action="' + url + '" method="post">' +
                             '<input type="text" name="id" value="' + String(dataParsed.id) + '" />' +
                             '<input type="text" name="type" value="' + BtnClicked.name + '" />' +
-                            '<input type="hidden" name="csrf_name" value="' + csrfName.val() + '" />' +
-                            '<input type="hidden" name="csrf_value" value="' + csrfValue.val() + '" />' +
+                            '<input type="text" name="csrf_name" value="' + csrfName.val() + '" />' +
+                            '<input type="text" name="csrf_value" value="' + csrfValue.val() + '" />' +
                             '</form>');
                         //console.log(form);
                         $('body').append(form);
@@ -226,7 +227,7 @@ function setBtns(info, type) {
 }
 
 //global alert remover
-setInterval(function() {
+setInterval(function () {
     if ('.alert') {
         setTimeout(() => {
             $('.alert').slideUp();
@@ -251,27 +252,31 @@ function makeBtn(btnId, btnType, btnValue, btnClassName, btnText) {
 
 //send delete request
 function editEntry(type, id, action) {
-    //console.log(type, id, action);
+    console.log(type, id, action);
     if (action === "del") {
         urlStr = "updateEntry";
         methodType = "GET";
-        info = JSON.stringify({
-            type: type,
-            id: id,
-            action: action,
-            "csrf_name": csrfName.val(),
-            "csrf_value": csrfValue.val()
-        });
+        info = //JSON.stringify({
+            {
+                type: type,
+                id: id,
+                action: action,
+                "csrf_name": csrfName.val(),
+                "csrf_value": csrfValue.val()
+            }
+        //});
     }
-
+    console.log(info);
+    var enrollmentArray = [];
     $.ajax({
         type: methodType,
         url: urlStr,
         data: info,
-        error: function(e) {
+        async: false,
+        error: function (e) {
             console.log(e, status);
         },
-        success: function(data, status) {
+        success: function (data, status) {
             console.log('data: ', data, 'status: ', status);
             //console.log('enrollments:', data.length);
             data.forEach(entry => {
@@ -312,7 +317,7 @@ function enrollmentListTable(enrollmentList, tableName) {
     return table;
 }
 
-$('.enroll,.unEnroll').click(function(e) {
+$('.enroll,.unEnroll').click(function (e) {
     btnClicked = event.target;
     var eid;
     var action;
@@ -353,8 +358,8 @@ $('.enroll,.unEnroll').click(function(e) {
         '<input type="text" name="sname" value="' + sname + '" />' +
         '<input type="text" name="cname" value="' + cname + '" />' +
         '<input type="text" name="action" value="' + action + '" />' +
-        '<input type="hidden" name="csrf_name" value="' + csrfName.val() + '" />' +
-        '<input type="hidden" name="csrf_value" value="' + csrfValue.val() + '" />' +
+        '<input type="text" name="csrf_name" value="' + csrfName.val() + '" />' +
+        '<input type="text" name="csrf_value" value="' + csrfValue.val() + '" />' +
         '</form>');
     //console.log(form);
     $('body').append(Eform);

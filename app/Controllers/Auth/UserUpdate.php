@@ -80,7 +80,7 @@ class UserUpdate extends Controller
             ]);
         }
         $validation = $this->validator->validate($request, [
-            'email' => v::noWhitespace()->notEmpty()->EmailAvailable(),
+            'email' => v::noWhitespace()->notEmpty(),
             'name' => v::notEmpty()->alpha(),
             'phone' => v::notEmpty()->PhoneValid(),
             'role' => v::notEmpty(),
